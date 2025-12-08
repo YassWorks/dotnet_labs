@@ -1,0 +1,93 @@
+@model IEnumerable<TP2.Models.Movie>
+
+@{
+    ViewBag.Title = "Movie List";
+    var pageNumber = (int)ViewData["PageNumber"]!;
+    var hasPreviousPage = (bool)ViewData["HasPreviousPage"]!;
+    var hasNextPage = (bool)ViewData["HasNextPage"]!;
+}
+
+<h2>Movie List</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-pageNumber="1">Name</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["GenreSortParm"]" asp-route-pageNumber="1">Genre</a>
+            </th>
+            <th>Date Added</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImageFile))
+                    {
+                        <img src="~/images/@item.ImageFile" alt="@item.Name" style="width: 80px; height: 80px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">No image</span>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre!.Name)
+                </td>
+                <td>
+                    @if (item.DateAjoutMovie.HasValue)
+                    {
+                        @item.DateAjoutMovie.Value.ToString("dd/MM/yyyy HH:mm")
+                    }
+                    else
+                    {
+                        <span class="text-muted">N/A</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Pagination simple -->
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(!hasPreviousPage ? "disabled" : "")">
+            <a class="page-link" 
+               asp-action="Index" 
+               asp-route-sortOrder="@ViewData["CurrentSort"]" 
+               asp-route-pageNumber="@(pageNumber - 1)">
+                Previous
+            </a>
+        </li>
+        <li class="page-item active">
+            <span class="page-link">Page @pageNumber</span>
+        </li>
+        <li class="page-item @(!hasNextPage ? "disabled" : "")">
+            <a class="page-link" 
+               asp-action="Index" 
+               asp-route-sortOrder="@ViewData["CurrentSort"]" 
+               asp-route-pageNumber="@(pageNumber + 1)">
+                Next
+            </a>
+        </li>
+    </ul>
+</nav>

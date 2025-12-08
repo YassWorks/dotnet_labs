@@ -1,0 +1,65 @@
+@model TP2.Models.Customer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Customer</h4>
+<hr />
+
+@* Affichage des erreurs de validation via ViewBag *@
+@if (ViewBag.Errors != null)
+{
+    <div class="text-danger ml">
+        <ul>
+            @foreach (string error in ViewBag.Errors)
+            {
+                <li class="ml">@error</li>
+            }
+        </ul>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MembershipTypeId" class="control-label">Membership Name</label>
+                <select asp-for="MembershipTypeId" class="form-control">
+                    <option value="">-- Select Membership --</option>
+                    @if (ViewBag.MembershipTypes != null)
+                    {
+                        var membershipTypes = ViewBag.MembershipTypes as List<TP2.Models.MembershipType>;
+                        if (membershipTypes != null)
+                        {
+                            @foreach (var membershipType in membershipTypes)
+                            {
+                                <option value="@membershipType.Id">@membershipType.Name</option>
+                            }
+                        }
+                    }
+                </select>
+                <span asp-validation-for="MembershipTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="margin-top: 20px">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

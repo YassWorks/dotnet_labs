@@ -1,0 +1,67 @@
+@model TP2.Models.AuditLog
+
+@{
+    ViewData["Title"] = "Audit Log Details";
+}
+
+<h1>Audit Log Details</h1>
+
+<div class="card">
+    <div class="card-header">
+        <h4>@Model.Action on @Model.TableName</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Table Name</dt>
+            <dd class="col-sm-9">@Model.TableName</dd>
+
+            <dt class="col-sm-3">Action</dt>
+            <dd class="col-sm-9">
+                @if (Model.Action == "Added")
+                {
+                    <span class="badge bg-success">@Model.Action</span>
+                }
+                else if (Model.Action == "Modified")
+                {
+                    <span class="badge bg-warning text-dark">@Model.Action</span>
+                }
+                else if (Model.Action == "Deleted")
+                {
+                    <span class="badge bg-danger">@Model.Action</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">@Model.Action</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Entity Key</dt>
+            <dd class="col-sm-9">@Model.EntityKey</dd>
+
+            <dt class="col-sm-3">Date</dt>
+            <dd class="col-sm-9">@Model.Date.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")</dd>
+
+            <dt class="col-sm-3">Changes</dt>
+            <dd class="col-sm-9">
+                @if (!string.IsNullOrEmpty(Model.Changes))
+                {
+                    <div class="card">
+                        <div class="card-body">
+                            <pre class="mb-0" style="white-space: pre-wrap; word-wrap: break-word;">@Model.Changes</pre>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <span class="text-muted">No changes recorded</span>
+                }
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    </div>
+</div>
