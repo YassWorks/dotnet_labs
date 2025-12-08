@@ -3,14 +3,9 @@ using TP2.Models;
 
 namespace TP2.Repositories;
 
-public class MovieRepository : GenericRepository<Movie>, IMovieRepository
+public class MovieRepository(ApplicationDbContext context) : GenericRepository<Movie>(context), IMovieRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public MovieRepository(ApplicationDbContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly ApplicationDbContext _context = context;
 
     public async Task<IEnumerable<Movie>> GetAllWithGenreAsync()
     {

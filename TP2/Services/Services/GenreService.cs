@@ -4,60 +4,53 @@ using TP2.Services.ServiceContracts;
 
 namespace TP2.Services.Services;
 
-public class GenreService : IGenreService
+public class GenreService(IGenreRepository genreRepository) : IGenreService
 {
-    private readonly IGenreRepository _genreRepository;
-
-    public GenreService(IGenreRepository genreRepository)
-    {
-        _genreRepository = genreRepository;
-    }
-
     public async Task<IEnumerable<Genre>> GetAllGenresAsync()
     {
-        return await _genreRepository.GetAllAsync();
+        return await genreRepository.GetAllAsync();
     }
 
     public async Task<Genre?> GetGenreByIdAsync(Guid id)
     {
-        return await _genreRepository.GetByIdAsync(id);
+        return await genreRepository.GetByIdAsync(id);
     }
 
     public async Task<Genre> AddGenreAsync(Genre genre)
     {
-        await _genreRepository.AddAsync(genre);
-        await _genreRepository.SaveChangesAsync();
+        await genreRepository.AddAsync(genre);
+        await genreRepository.SaveChangesAsync();
         return genre;
     }
 
     public async Task UpdateGenreAsync(Genre genre)
     {
-        _genreRepository.Update(genre);
-        await _genreRepository.SaveChangesAsync();
+        genreRepository.Update(genre);
+        await genreRepository.SaveChangesAsync();
     }
 
     public async Task DeleteGenreAsync(Guid id)
     {
-        var genre = await _genreRepository.GetByIdAsync(id);
+        var genre = await genreRepository.GetByIdAsync(id);
         if (genre != null)
         {
-            _genreRepository.Remove(genre);
-            await _genreRepository.SaveChangesAsync();
+            genreRepository.Remove(genre);
+            await genreRepository.SaveChangesAsync();
         }
     }
 
     public async Task<IEnumerable<object>> GetTop3PopularGenresAsync()
     {
-        return await _genreRepository.GetTop3PopularGenresAsync();
+        return await genreRepository.GetTop3PopularGenresAsync();
     }
 
     public async Task<bool> GenreExistsAsync(Guid id)
     {
-        return await _genreRepository.AnyAsync(g => g.Id == id);
+        return await genreRepository.AnyAsync(g => g.Id == id);
     }
 
     public async Task<bool> HasMoviesAsync(Guid genreId)
     {
-        return await _genreRepository.HasMoviesAsync(genreId);
+        return await genreRepository.HasMoviesAsync(genreId);
     }
 }

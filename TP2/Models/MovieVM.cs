@@ -1,8 +1,5 @@
 namespace TP2.Models;
 
-/// <summary>
-/// ViewModel for creating/editing a movie (optional image upload)
-/// </summary>
 public class MovieVM
 {
     // Movie data
