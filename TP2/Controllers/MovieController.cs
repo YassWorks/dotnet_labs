@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TP2.Models;
 using TP2.Services.ServiceContracts;
 
@@ -156,7 +157,7 @@ public class MovieController : Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MovieExists(movie.Id))
+                if (!await MovieExists(movie.Id))
                 {
                     return NotFound();
                 }

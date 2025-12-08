@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TP2.Models;
 using TP2.Services.ServiceContracts;
 
@@ -88,7 +89,7 @@ public class GenreController : Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GenreExists(genre.Id))
+                if (!await GenreExists(genre.Id))
                 {
                     return NotFound();
                 }

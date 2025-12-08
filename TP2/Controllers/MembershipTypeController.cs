@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TP2.Models;
 using TP2.Services.ServiceContracts;
 
@@ -92,7 +93,7 @@ public class MembershipTypeController : Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MembershipTypeExists(membershipType.Id))
+                if (!await MembershipTypeExists(membershipType.Id))
                 {
                     return NotFound();
                 }

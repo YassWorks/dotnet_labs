@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TP2.Models;
 using TP2.Services.ServiceContracts;
 
@@ -103,7 +104,7 @@ public class CustomerController : Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(customer.Id))
+                if (!await CustomerExists(customer.Id))
                 {
                     return NotFound();
                 }
