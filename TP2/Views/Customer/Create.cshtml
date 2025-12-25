@@ -9,14 +9,14 @@
 <h4>Customer</h4>
 <hr />
 
-@* Affichage des erreurs de validation via ViewBag *@
+@* Display validation errors via ViewBag *@
 @if (ViewBag.Errors != null)
 {
-    <div class="text-danger ml">
+    <div class="text-danger">
         <ul>
             @foreach (string error in ViewBag.Errors)
             {
-                <li class="ml">@error</li>
+                <li>@error</li>
             }
         </ul>
     </div>
@@ -61,5 +61,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

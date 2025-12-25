@@ -60,7 +60,7 @@ public class MovieController : Controller
         }
 
         var movie = await _movieService.GetMovieByIdAsync(id.Value);
-        
+
         if (movie == null)
         {
             return NotFound();
@@ -84,7 +84,7 @@ public class MovieController : Controller
         try
         {
             string? imageFileName = null;
-            
+
             // Upload photo if provided
             if (photo != null)
             {
@@ -97,7 +97,7 @@ public class MovieController : Controller
 
                 imageFileName = photo.FileName;
             }
-            
+
             // Map ViewModel to Model
             var movie = new Movie
             {
@@ -108,7 +108,7 @@ public class MovieController : Controller
                 Stock = 0,
                 ReleaseDate = null
             };
-            
+
             // Use service to save with audit
             await _movieService.AddMovieAsync(movie);
 
@@ -191,7 +191,7 @@ public class MovieController : Controller
         }
 
         var movie = await _movieService.GetMovieByIdAsync(id.Value);
-            
+
         if (movie == null)
         {
             return NotFound();

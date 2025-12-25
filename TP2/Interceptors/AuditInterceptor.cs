@@ -12,7 +12,7 @@ public class AuditInterceptor : SaveChangesInterceptor
         InterceptionResult<int> result)
     {
         if (eventData.Context is null) return result;
-        
+
         CreateAuditLogs(eventData.Context);
         return result;
     }
@@ -23,7 +23,7 @@ public class AuditInterceptor : SaveChangesInterceptor
         CancellationToken cancellationToken = default)
     {
         if (eventData.Context is null) return new ValueTask<InterceptionResult<int>>(result);
-        
+
         CreateAuditLogs(eventData.Context);
         return new ValueTask<InterceptionResult<int>>(result);
     }
@@ -31,9 +31,9 @@ public class AuditInterceptor : SaveChangesInterceptor
     private void CreateAuditLogs(DbContext context)
     {
         var entries = context.ChangeTracker.Entries()
-            .Where(e => e.Entity is not AuditLog && 
-                       (e.State == EntityState.Added || 
-                        e.State == EntityState.Modified || 
+            .Where(e => e.Entity is not AuditLog &&
+                       (e.State == EntityState.Added ||
+                        e.State == EntityState.Modified ||
                         e.State == EntityState.Deleted))
             .ToList();
 
@@ -83,9 +83,10 @@ public class AuditInterceptor : SaveChangesInterceptor
                 .Where(p => p.IsModified)
                 .ToDictionary(
                     p => p.Metadata.Name,
-                    p => new { 
-                        OldValue = p.OriginalValue, 
-                        NewValue = p.CurrentValue 
+                    p => new
+                    {
+                        OldValue = p.OriginalValue,
+                        NewValue = p.CurrentValue
                     }
                 );
             return JsonSerializer.Serialize(new { Modified = modifiedValues });

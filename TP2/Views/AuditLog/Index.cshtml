@@ -11,15 +11,19 @@
         <form asp-action="Index" method="get" class="row g-3">
             <div class="col-md-3">
                 <label for="filterTable" class="form-label">Filter by Table</label>
-                <input type="text" class="form-control" id="filterTable" name="filterTable" value="@ViewData["CurrentFilterTable"]" />
+                <input type="text" class="form-control" id="filterTable" name="filterTable"
+                    value="@ViewData["CurrentFilterTable"]" />
             </div>
             <div class="col-md-3">
                 <label for="filterAction" class="form-label">Filter by Action</label>
                 <select class="form-select" id="filterAction" name="filterAction">
                     <option value="">All Actions</option>
-                    <option value="Added" selected="@(ViewData["CurrentFilterAction"]?.ToString() == "Added")">Added</option>
-                    <option value="Modified" selected="@(ViewData["CurrentFilterAction"]?.ToString() == "Modified")">Modified</option>
-                    <option value="Deleted" selected="@(ViewData["CurrentFilterAction"]?.ToString() == "Deleted")">Deleted</option>
+                    <option value="Added" selected="@(ViewData["CurrentFilterAction"]?.ToString() == "Added")">Added
+                    </option>
+                    <option value="Modified" selected="@(ViewData["CurrentFilterAction"]?.ToString() == "Modified")">
+                        Modified</option>
+                    <option value="Deleted" selected="@(ViewData["CurrentFilterAction"]?.ToString() == "Deleted")">
+                        Deleted</option>
                 </select>
             </div>
             <div class="col-md-3 d-flex align-items-end">
@@ -34,17 +38,23 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-filterTable="@ViewData["CurrentFilterTable"]" asp-route-filterAction="@ViewData["CurrentFilterAction"]">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]"
+                    asp-route-filterTable="@ViewData["CurrentFilterTable"]"
+                    asp-route-filterAction="@ViewData["CurrentFilterAction"]">
                     Date
                 </a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["TableSortParm"]" asp-route-filterTable="@ViewData["CurrentFilterTable"]" asp-route-filterAction="@ViewData["CurrentFilterAction"]">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TableSortParm"]"
+                    asp-route-filterTable="@ViewData["CurrentFilterTable"]"
+                    asp-route-filterAction="@ViewData["CurrentFilterAction"]">
                     Table Name
                 </a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["ActionSortParm"]" asp-route-filterTable="@ViewData["CurrentFilterTable"]" asp-route-filterAction="@ViewData["CurrentFilterAction"]">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ActionSortParm"]"
+                    asp-route-filterTable="@ViewData["CurrentFilterTable"]"
+                    asp-route-filterAction="@ViewData["CurrentFilterAction"]">
                     Action
                 </a>
             </th>
@@ -111,18 +121,23 @@
             }
 
             <li class="page-item @(currentPage == 1 ? "disabled" : "")">
-                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(currentPage - 1)" asp-route-sortOrder="@sortOrder" asp-route-filterTable="@filterTable" asp-route-filterAction="@filterAction">Previous</a>
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(currentPage - 1)"
+                    asp-route-sortOrder="@sortOrder" asp-route-filterTable="@filterTable"
+                    asp-route-filterAction="@filterAction">Previous</a>
             </li>
 
             @for (int i = Math.Max(1, currentPage - 2); i <= Math.Min(totalPages, currentPage + 2); i++)
             {
                 <li class="page-item @(i == currentPage ? "active" : "")">
-                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@i" asp-route-sortOrder="@sortOrder" asp-route-filterTable="@filterTable" asp-route-filterAction="@filterAction">@i</a>
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@i" asp-route-sortOrder="@sortOrder"
+                        asp-route-filterTable="@filterTable" asp-route-filterAction="@filterAction">@i</a>
                 </li>
             }
 
             <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
-                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(currentPage + 1)" asp-route-sortOrder="@sortOrder" asp-route-filterTable="@filterTable" asp-route-filterAction="@filterAction">Next</a>
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(currentPage + 1)"
+                    asp-route-sortOrder="@sortOrder" asp-route-filterTable="@filterTable"
+                    asp-route-filterAction="@filterAction">Next</a>
             </li>
         </ul>
     </nav>

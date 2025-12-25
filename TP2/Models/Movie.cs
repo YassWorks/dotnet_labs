@@ -11,15 +11,15 @@ public class Movie
 
     // Optional image file name
     public string? ImageFile { get; set; }
-    
+
     // Date added
     public DateTime? DateAdded { get; set; }
-    
+
     // Stock quantity
     public int Stock { get; set; }
-    
+
     // Release date
     public DateTime? ReleaseDate { get; set; }
 
-    public Movie() {}
+    public Movie() { }
 }

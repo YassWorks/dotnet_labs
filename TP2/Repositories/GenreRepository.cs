@@ -15,12 +15,12 @@ public class GenreRepository : GenericRepository<Genre>, IGenreRepository
     public async Task<IEnumerable<object>> GetTop3PopularGenresAsync()
     {
         var top3Genres = await (from genre in _context.Genres!
-                               join movie in _context.Movies! on genre.Id equals movie.GenreId into movieGroup
-                               select new
-                               {
-                                   GenreName = genre.Name,
-                                   MovieCount = movieGroup.Count()
-                               })
+                                join movie in _context.Movies! on genre.Id equals movie.GenreId into movieGroup
+                                select new
+                                {
+                                    GenreName = genre.Name,
+                                    MovieCount = movieGroup.Count()
+                                })
                                .OrderByDescending(g => g.MovieCount)
                                .Take(3)
                                .ToListAsync();

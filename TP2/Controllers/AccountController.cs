@@ -23,9 +23,9 @@ public class AccountController : Controller
 
     public IActionResult UserCart()
     {
-        var currentuser = _userManager.GetUserId(User);
+        var currentUser = _userManager.GetUserId(User);
         var carts = _context.UserCarts
-            .Where(c => c.UserID == currentuser)
+            .Where(c => c.UserId == currentUser)
             .ToList();
         return View(carts);
     }

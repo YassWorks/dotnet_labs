@@ -8,7 +8,7 @@ public class Customer
     public int MembershipTypeId { get; set; }
 
     public MembershipType? MembershipType { get; set; }
-    
+
     // Newsletter subscription flag
     public bool IsSubscribed { get; set; }
 }

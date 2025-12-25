@@ -73,7 +73,7 @@ public class AuditLogController : Controller
 
         var auditLog = await _context.AuditLogs
             .FirstOrDefaultAsync(m => m.Id == id);
-        
+
         if (auditLog == null)
         {
             return NotFound();

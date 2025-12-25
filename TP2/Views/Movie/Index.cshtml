@@ -21,7 +21,8 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-pageNumber="1">Name</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["GenreSortParm"]" asp-route-pageNumber="1">Genre</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["GenreSortParm"]"
+                    asp-route-pageNumber="1">Genre</a>
             </th>
             <th>Date Added</th>
             <th></th>
@@ -34,7 +35,8 @@
                 <td>
                     @if (!string.IsNullOrEmpty(item.ImageFile))
                     {
-                        <img src="~/images/@item.ImageFile" alt="@item.Name" style="width: 80px; height: 80px; object-fit: cover;" />
+                        <img src="~/images/@item.ImageFile" alt="@item.Name"
+                            style="width: 80px; height: 80px; object-fit: cover;" />
                     }
                     else
                     {
@@ -48,9 +50,9 @@
                     @Html.DisplayFor(modelItem => item.Genre!.Name)
                 </td>
                 <td>
-                    @if (item.DateAjoutMovie.HasValue)
+                    @if (item.DateAdded.HasValue)
                     {
-                        @item.DateAjoutMovie.Value.ToString("dd/MM/yyyy HH:mm")
+                        @item.DateAdded.Value.ToString("dd/MM/yyyy HH:mm")
                     }
                     else
                     {
@@ -71,10 +73,8 @@
 <nav aria-label="Page navigation">
     <ul class="pagination">
         <li class="page-item @(!hasPreviousPage ? "disabled" : "")">
-            <a class="page-link" 
-               asp-action="Index" 
-               asp-route-sortOrder="@ViewData["CurrentSort"]" 
-               asp-route-pageNumber="@(pageNumber - 1)">
+            <a class="page-link" asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                asp-route-pageNumber="@(pageNumber - 1)">
                 Previous
             </a>
         </li>
@@ -82,10 +82,8 @@
             <span class="page-link">Page @pageNumber</span>
         </li>
         <li class="page-item @(!hasNextPage ? "disabled" : "")">
-            <a class="page-link" 
-               asp-action="Index" 
-               asp-route-sortOrder="@ViewData["CurrentSort"]" 
-               asp-route-pageNumber="@(pageNumber + 1)">
+            <a class="page-link" asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                asp-route-pageNumber="@(pageNumber + 1)">
                 Next
             </a>
         </li>

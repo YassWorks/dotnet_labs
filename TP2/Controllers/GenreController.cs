@@ -29,7 +29,7 @@ public class GenreController : Controller
         }
 
         var genre = await _genreService.GetGenreByIdAsync(id.Value);
-        
+
         if (genre == null)
         {
             return NotFound();

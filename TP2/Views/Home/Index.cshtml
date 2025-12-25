@@ -1,8 +1,45 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-section">
+    <div class="container-fluid px-4 px-md-5">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to <span class="gradient-text">CineTrack</span></h1>
+            <p class="hero-subtitle">Your comprehensive movie management and rental system</p>
+            <div class="hero-actions">
+                <a asp-controller="Movie" asp-action="Index" class="btn btn-primary btn-lg">Browse Movies</a>
+                <a asp-controller="Customer" asp-action="Index" class="btn btn-outline-light btn-lg">Manage Customers</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-4 px-md-5 features-section">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">🎬</div>
+                <h3>Movie Library</h3>
+                <p>Manage your entire movie collection with ease. Track stock, genres, and release dates.</p>
+                <a asp-controller="Movie" asp-action="Index" class="feature-link">Explore Movies →</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Customer Management</h3>
+                <p>Keep track of your customers, their memberships, and rental history.</p>
+                <a asp-controller="Customer" asp-action="Index" class="feature-link">View Customers →</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Audit Tracking</h3>
+                <p>Complete audit trail of all changes with automatic logging and detailed history.</p>
+                <a asp-controller="AuditLog" asp-action="Index" class="feature-link">View Audit Logs →</a>
+            </div>
+        </div>
+    </div>
 </div>

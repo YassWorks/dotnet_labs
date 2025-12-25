@@ -1,32 +1,44 @@
-<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<nav class="navbar navbar-expand-lg navbar-dark app-navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" asp-area="" asp-controller="Movie" asp-action="Index">MVC Movie</a>
+        <a class="navbar-brand brand-logo" asp-area="" asp-controller="Home" asp-action="Index">
+            <span class="brand-icon">🎬</span>
+            <span class="brand-text">CineTrack</span>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
+        <div class="navbar-collapse collapse d-lg-inline-flex">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                        <span>Home</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Movie" asp-action="Index">Movies</a>
+                    <a class="nav-link" asp-area="" asp-controller="Movie" asp-action="Index">
+                        <span>Movies</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Genre" asp-action="Index">Genres</a>
+                    <a class="nav-link" asp-area="" asp-controller="Genre" asp-action="Index">
+                        <span>Genres</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Index">Customers</a>
+                    <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="Index">
+                        <span>Customers</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="MembershipType" asp-action="Index">Membership Types</a>
+                    <a class="nav-link" asp-area="" asp-controller="MembershipType" asp-action="Index">
+                        <span>Memberships</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="AuditLog" asp-action="Index">Audit Logs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    <a class="nav-link" asp-area="" asp-controller="AuditLog" asp-action="Index">
+                        <span>Audit</span>
+                    </a>
                 </li>
             </ul>
             <partial name="_LoginPartial" />
