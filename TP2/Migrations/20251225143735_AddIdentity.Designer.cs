@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TP2.Models;
 
@@ -11,13 +12,15 @@ using TP2.Models;
 namespace TP2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251225143735_AddIdentity")]
+    partial class AddIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -168,6 +171,7 @@ namespace TP2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -358,7 +362,25 @@ namespace TP2.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("TP2.Models.Product", b =>
+            modelBuilder.Entity("TP2.Models.PanierParUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProduitId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Paniers");
+                });
+
+            modelBuilder.Entity("TP2.Models.Produit", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -372,36 +394,17 @@ namespace TP2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("PanierParUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<decimal>("Price")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid?>("UserCartId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserCartId");
+                    b.HasIndex("PanierParUserId");
 
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("TP2.Models.UserCart", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserCarts");
+                    b.ToTable("Produits");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -477,11 +480,11 @@ namespace TP2.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("TP2.Models.Product", b =>
+            modelBuilder.Entity("TP2.Models.Produit", b =>
                 {
-                    b.HasOne("TP2.Models.UserCart", null)
-                        .WithMany("Products")
-                        .HasForeignKey("UserCartId");
+                    b.HasOne("TP2.Models.PanierParUser", null)
+                        .WithMany("produits")
+                        .HasForeignKey("PanierParUserId");
                 });
 
             modelBuilder.Entity("TP2.Models.Genre", b =>
@@ -494,9 +497,9 @@ namespace TP2.Migrations
                     b.Navigation("Customers");
                 });
 
-            modelBuilder.Entity("TP2.Models.UserCart", b =>
+            modelBuilder.Entity("TP2.Models.PanierParUser", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("produits");
                 });
 #pragma warning restore 612, 618
         }
