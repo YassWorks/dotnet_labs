@@ -182,7 +182,3 @@ All services, repositories, and the interceptor are registered in the DI contain
 -   Initial data can be seeded from `Genres.json` and `Movies.json` files
 -   Audit logs are automatically created for all entity changes
 -   Password requirements: minimum 6 characters with at least one digit and one lowercase letter
-
-## Author
-
-Submitted as TP2 Assignment - December 2025
