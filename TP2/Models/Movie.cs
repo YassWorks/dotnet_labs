@@ -13,7 +13,7 @@ public class Movie
     public string? ImageFile { get; set; }
     
     // Date added
-    public DateTime? DateAjoutMovie { get; set; }
+    public DateTime? DateAdded { get; set; }
     
     // Stock quantity
     public int Stock { get; set; }

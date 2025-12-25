@@ -103,7 +103,7 @@ public class MovieController : Controller
             {
                 Name = model.movie.Name,
                 GenreId = model.movie.GenreId,
-                DateAjoutMovie = DateTime.Now,
+                DateAdded = DateTime.Now,
                 ImageFile = imageFileName,
                 Stock = 0,
                 ReleaseDate = null
@@ -114,9 +114,12 @@ public class MovieController : Controller
 
             return RedirectToAction(nameof(Index));
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw;
+            // Log error and reload form
+            ModelState.AddModelError("", $"Error creating movie: {ex.Message}");
+            ViewBag.Genres = await _genreService.GetAllGenresAsync();
+            return View(model);
         }
     }
 
