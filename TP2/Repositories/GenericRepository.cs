@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using TP2.Models;
+using TP2.Data;
 
 namespace TP2.Repositories;
 
