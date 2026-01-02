@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TP2.Models;
+using TP2.Data;
 
 namespace TP2.Controllers;
 
