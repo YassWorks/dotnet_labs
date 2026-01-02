@@ -26,9 +26,9 @@ public class CustomerRepository : GenericRepository<Customer>, ICustomerReposito
     public async Task<IEnumerable<Customer>> GetSubscribedCustomersWithDiscountAsync()
     {
         var results = from customer in _context.Customers!
-                      join membership in _context.MembershipTypes! on customer.MembershipTypeId equals membership.Id
-                      where customer.IsSubscribed && membership.DiscountRate > 0.10m
-                      select customer;
+            join membership in _context.MembershipTypes! on customer.MembershipTypeId equals membership.Id
+            where customer.IsSubscribed && membership.DiscountRate > 0.10m
+            select customer;
 
         return await results.Include(c => c.MembershipType).ToListAsync();
     }

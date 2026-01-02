@@ -4,9 +4,14 @@ using TP2.Data;
 
 namespace TP2.Repositories;
 
-public class MovieRepository(ApplicationDbContext context) : GenericRepository<Movie>(context), IMovieRepository
+public class MovieRepository : GenericRepository<Movie>, IMovieRepository
 {
-    private readonly ApplicationDbContext _context = context;
+    private readonly ApplicationDbContext _context;
+
+    public MovieRepository(ApplicationDbContext context) : base(context)
+    {
+        _context = context;
+    }
 
     public async Task<IEnumerable<Movie>> GetAllWithGenreAsync()
     {
@@ -21,9 +26,9 @@ public class MovieRepository(ApplicationDbContext context) : GenericRepository<M
     public async Task<IEnumerable<Movie>> GetActionMoviesInStockAsync()
     {
         var actionMovies = from movie in _context.Movies!
-                           join genre in _context.Genres! on movie.GenreId equals genre.Id
-                           where genre.Name == "Action" && movie.Stock > 0
-                           select movie;
+            join genre in _context.Genres! on movie.GenreId equals genre.Id
+            where genre.Name == "Action" && movie.Stock > 0
+            select movie;
 
         return await actionMovies.Include(m => m.Genre).ToListAsync();
     }
@@ -31,8 +36,8 @@ public class MovieRepository(ApplicationDbContext context) : GenericRepository<M
     public async Task<IEnumerable<Movie>> GetMoviesOrderedByReleaseDateAndTitleAsync()
     {
         var orderedMovies = from movie in _context.Movies!
-                            orderby movie.ReleaseDate, movie.Name
-                            select movie;
+            orderby movie.ReleaseDate, movie.Name
+            select movie;
 
         return await orderedMovies.Include(m => m.Genre).ToListAsync();
     }
@@ -40,12 +45,12 @@ public class MovieRepository(ApplicationDbContext context) : GenericRepository<M
     public async Task<IEnumerable<object>> GetMoviesWithGenreAsync()
     {
         var moviesWithGenre = from movie in _context.Movies!
-                              join genre in _context.Genres! on movie.GenreId equals genre.Id
-                              select new
-                              {
-                                  MovieTitle = movie.Name,
-                                  GenreName = genre.Name
-                              };
+            join genre in _context.Genres! on movie.GenreId equals genre.Id
+            select new
+            {
+                MovieTitle = movie.Name,
+                GenreName = genre.Name
+            };
 
         return await moviesWithGenre.ToListAsync();
     }
