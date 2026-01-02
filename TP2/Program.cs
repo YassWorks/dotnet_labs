@@ -5,6 +5,7 @@ using TP2.Models;
 using TP2.Repositories;
 using TP2.Services.ServiceContracts;
 using TP2.Services.Services;
+using TP2.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

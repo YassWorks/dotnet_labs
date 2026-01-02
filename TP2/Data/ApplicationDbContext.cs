@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TP2.Models;
 
-namespace TP2.Models;
+namespace TP2.Data;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
