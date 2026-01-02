@@ -6,48 +6,48 @@ namespace TP2.Services.Services;
 
 public class MembershipTypeService : IMembershipTypeService
 {
-    private readonly IGenericRepository<MembershipType> _membershipTypeRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public MembershipTypeService(IGenericRepository<MembershipType> membershipTypeRepository)
+    public MembershipTypeService(IUnitOfWork unitOfWork)
     {
-        _membershipTypeRepository = membershipTypeRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IEnumerable<MembershipType>> GetAllMembershipTypesAsync()
     {
-        return await _membershipTypeRepository.GetAllAsync();
+        return await _unitOfWork.MembershipTypes.GetAllAsync();
     }
 
     public async Task<MembershipType?> GetMembershipTypeByIdAsync(int id)
     {
-        return await _membershipTypeRepository.GetByIdAsync(id);
+        return await _unitOfWork.MembershipTypes.GetByIdAsync(id);
     }
 
     public async Task<MembershipType> AddMembershipTypeAsync(MembershipType membershipType)
     {
-        await _membershipTypeRepository.AddAsync(membershipType);
-        await _membershipTypeRepository.SaveChangesAsync();
+        await _unitOfWork.MembershipTypes.AddAsync(membershipType);
+        await _unitOfWork.SaveChangesAsync();
         return membershipType;
     }
 
     public async Task UpdateMembershipTypeAsync(MembershipType membershipType)
     {
-        _membershipTypeRepository.Update(membershipType);
-        await _membershipTypeRepository.SaveChangesAsync();
+        _unitOfWork.MembershipTypes.Update(membershipType);
+        await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteMembershipTypeAsync(int id)
     {
-        var membershipType = await _membershipTypeRepository.GetByIdAsync(id);
+        var membershipType = await _unitOfWork.MembershipTypes.GetByIdAsync(id);
         if (membershipType != null)
         {
-            _membershipTypeRepository.Remove(membershipType);
-            await _membershipTypeRepository.SaveChangesAsync();
+            _unitOfWork.MembershipTypes.Remove(membershipType);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 
     public async Task<bool> MembershipTypeExistsAsync(int id)
     {
-        return await _membershipTypeRepository.AnyAsync(m => m.Id == id);
+        return await _unitOfWork.MembershipTypes.AnyAsync(m => m.Id == id);
     }
 }

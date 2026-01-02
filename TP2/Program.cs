@@ -40,13 +40,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = false;
 });
 
-// Register Generic Repository
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
-// Register Specific Repositories
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+// Register Unit of Work
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Register services
 builder.Services.AddScoped<IMovieService, MovieService>();

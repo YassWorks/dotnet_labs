@@ -6,68 +6,68 @@ namespace TP2.Services.Services;
 
 public class MovieService : IMovieService
 {
-    private readonly IMovieRepository _movieRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public MovieService(IMovieRepository movieRepository)
+    public MovieService(IUnitOfWork unitOfWork)
     {
-        _movieRepository = movieRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IEnumerable<Movie>> GetAllMoviesAsync()
     {
-        return await _movieRepository.GetAllWithGenreAsync();
+        return await _unitOfWork.Movies.GetAllWithGenreAsync();
     }
 
     public async Task<Movie?> GetMovieByIdAsync(int id)
     {
-        return await _movieRepository.GetByIdWithGenreAsync(id);
+        return await _unitOfWork.Movies.GetByIdWithGenreAsync(id);
     }
 
     public async Task<Movie> AddMovieAsync(Movie movie)
     {
-        await _movieRepository.AddAsync(movie);
-        await _movieRepository.SaveChangesAsync();
+        await _unitOfWork.Movies.AddAsync(movie);
+        await _unitOfWork.SaveChangesAsync();
         return movie;
     }
 
     public async Task UpdateMovieAsync(Movie movie)
     {
-        _movieRepository.Update(movie);
-        await _movieRepository.SaveChangesAsync();
+        _unitOfWork.Movies.Update(movie);
+        await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteMovieAsync(int id)
     {
-        var movie = await _movieRepository.GetByIdAsync(id);
+        var movie = await _unitOfWork.Movies.GetByIdAsync(id);
         if (movie != null)
         {
-            _movieRepository.Remove(movie);
-            await _movieRepository.SaveChangesAsync();
+            _unitOfWork.Movies.Remove(movie);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 
     public async Task<IEnumerable<Movie>> GetActionMoviesInStockAsync()
     {
-        return await _movieRepository.GetActionMoviesInStockAsync();
+        return await _unitOfWork.Movies.GetActionMoviesInStockAsync();
     }
 
     public async Task<IEnumerable<Movie>> GetMoviesOrderedByReleaseDateAndTitleAsync()
     {
-        return await _movieRepository.GetMoviesOrderedByReleaseDateAndTitleAsync();
+        return await _unitOfWork.Movies.GetMoviesOrderedByReleaseDateAndTitleAsync();
     }
 
     public async Task<int> GetTotalMoviesCountAsync()
     {
-        return await _movieRepository.CountAsync();
+        return await _unitOfWork.Movies.CountAsync();
     }
 
     public async Task<IEnumerable<object>> GetMoviesWithGenreAsync()
     {
-        return await _movieRepository.GetMoviesWithGenreAsync();
+        return await _unitOfWork.Movies.GetMoviesWithGenreAsync();
     }
 
     public async Task<bool> MovieExistsAsync(int id)
     {
-        return await _movieRepository.AnyAsync(m => m.Id == id);
+        return await _unitOfWork.Movies.AnyAsync(m => m.Id == id);
     }
 }

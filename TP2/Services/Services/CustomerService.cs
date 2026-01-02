@@ -6,53 +6,53 @@ namespace TP2.Services.Services;
 
 public class CustomerService : ICustomerService
 {
-    private readonly ICustomerRepository _customerRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CustomerService(ICustomerRepository customerRepository)
+    public CustomerService(IUnitOfWork unitOfWork)
     {
-        _customerRepository = customerRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IEnumerable<Customer>> GetAllCustomersAsync()
     {
-        return await _customerRepository.GetAllWithMembershipTypeAsync();
+        return await _unitOfWork.Customers.GetAllWithMembershipTypeAsync();
     }
 
     public async Task<Customer?> GetCustomerByIdAsync(int id)
     {
-        return await _customerRepository.GetByIdWithMembershipTypeAsync(id);
+        return await _unitOfWork.Customers.GetByIdWithMembershipTypeAsync(id);
     }
 
     public async Task<Customer> AddCustomerAsync(Customer customer)
     {
-        await _customerRepository.AddAsync(customer);
-        await _customerRepository.SaveChangesAsync();
+        await _unitOfWork.Customers.AddAsync(customer);
+        await _unitOfWork.SaveChangesAsync();
         return customer;
     }
 
     public async Task UpdateCustomerAsync(Customer customer)
     {
-        _customerRepository.Update(customer);
-        await _customerRepository.SaveChangesAsync();
+        _unitOfWork.Customers.Update(customer);
+        await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteCustomerAsync(int id)
     {
-        var customer = await _customerRepository.GetByIdAsync(id);
+        var customer = await _unitOfWork.Customers.GetByIdAsync(id);
         if (customer != null)
         {
-            _customerRepository.Remove(customer);
-            await _customerRepository.SaveChangesAsync();
+            _unitOfWork.Customers.Remove(customer);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 
     public async Task<IEnumerable<Customer>> GetSubscribedCustomersWithDiscountAsync()
     {
-        return await _customerRepository.GetSubscribedCustomersWithDiscountAsync();
+        return await _unitOfWork.Customers.GetSubscribedCustomersWithDiscountAsync();
     }
 
     public async Task<bool> CustomerExistsAsync(int id)
     {
-        return await _customerRepository.AnyAsync(c => c.Id == id);
+        return await _unitOfWork.Customers.AnyAsync(c => c.Id == id);
     }
 }
